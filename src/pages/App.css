@@ -1,0 +1,11 @@
+@media(min-width : 0px) and (max-width : 900px) {
+    h1 {
+        font-size: 46px !important;
+    }
+    Button {
+        margin-top: 4% !important;
+    }
+    .wrapper {
+        margin-top: 50% !important;
+    }
+}
