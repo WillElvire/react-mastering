@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Button } from "src/components/ui/button";
 
 function Menu() {
   return (
@@ -24,6 +25,16 @@ function Menu() {
               >
                 Todo List
               </a>
+            </Link>
+
+
+            <Link to={"/login"}>
+              <Button
+                className="transition-colors hover:text-foreground/80 text-foreground"
+                variant={"outline"}
+              >
+                Login
+              </Button>
             </Link>
           </nav>
         </div>
