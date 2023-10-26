@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
-const firebaseConfig = {
+ const firebaseConfig = {
     apiKey: "AIzaSyCPTAx64Qe6a81ohugqRDUUxoD4Bx51zpM",
     authDomain: "safepay-f3363.firebaseapp.com",
     projectId: "safepay-f3363",
@@ -14,7 +14,7 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 // Export firestore database
 // It will be imported into your react app whenever it is needed
 export const db = getFirestore(app);
