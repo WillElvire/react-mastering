@@ -6,17 +6,21 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouting from "./router/app.route";
 import Menu from "./template/components/Menu";
 import { Toaster } from "./components/ui/toaster";
-
+import { Provider } from 'react-redux'
+import { store } from "./redux/store";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <BrowserRouter>
       <Menu></Menu>
       <Toaster />
       <AppRouting />
     </BrowserRouter>
+    </Provider>
+   
   </React.StrictMode>
 );
 

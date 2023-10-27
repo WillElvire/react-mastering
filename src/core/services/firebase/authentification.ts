@@ -1,47 +1,34 @@
 
-import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithPopup } from "firebase/auth";
+
+import { GoogleAuthProvider, User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { app } from "./initialisation";
 
 const auth = getAuth(app);
 
 
-export const googleAuth = ()=> {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+export const googleAuth = async ()=> {
+  const provider = new GoogleAuthProvider();
+  const responseAfterSignedIn = await signInWithPopup(auth, provider)
+  const credential = GoogleAuthProvider.credentialFromResult(responseAfterSignedIn);
+  let user  : Partial<User>= responseAfterSignedIn?.user;
+  if(!!user) {
+    return user =  {
+      email : user.email,
+      photoURL : user.photoURL,
+      uid : user.uid,
+      phoneNumber : user.phoneNumber,
+    }
+  }
+  return  { };
 }
 
 
-export const CreateUserWithEmailAndPassword = (email  : string , password : string ) => {
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-      console.log(user)
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-  
+export const CreateUserWithEmailAndPassword = async (email  : string , password : string ) => {
+    const user = await createUserWithEmailAndPassword(auth, email, password)
+    return user;
+}
+
+export const SignWithEmailAndPassword = async (email : string , password : string ) => {
+  const user = await signInWithEmailAndPassword(auth,email,password);
+  return user;
 }
