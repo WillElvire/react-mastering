@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AvatarFallback, AvatarImage } from "src/components/ui/avatar";
 import { Button } from "src/components/ui/button";
+import { removeFromStorage } from "src/core/services/storage/storage";
 import { authenticate } from "src/redux/userSlice";
 
 function Menu() {
@@ -33,6 +34,8 @@ function Menu() {
 
   function logout() {
     dispatch(authenticate({}))
+    removeFromStorage("user");
+    
   }
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
