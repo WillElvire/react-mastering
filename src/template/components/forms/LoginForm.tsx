@@ -6,6 +6,7 @@ import { Input } from "src/components/ui/input";
 import { Label } from "src/components/ui/label";
 import { useToast } from "src/components/ui/use-toast";
 import { CreateUserWithEmailAndPassword, SignWithEmailAndPassword, googleAuth } from "src/core/services/firebase/authentification";
+import { addToStorage } from "src/core/services/storage/storage";
 import { authenticate } from "src/redux/userSlice";
 
 function LoginForm () {
@@ -22,6 +23,7 @@ function LoginForm () {
       const response = await googleAuth();
       if(!!response?.email){
         dispatch(authenticate(response));
+        addToStorage({key : "user" , value : response})
         return toast({
           title  : "success",
           description : "Account successfully created",
@@ -58,6 +60,7 @@ function LoginForm () {
   
       if(!!response?.user) {
         dispatch(authenticate(response.user));
+        addToStorage({key : "user" , value : response.user})
         return toast({
           title  : "success",
           description : "Account successfully created",
